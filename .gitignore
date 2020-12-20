@@ -8,6 +8,7 @@
 /var/
 /vendor/
 /public/img/users/*.png
+/.idea
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
