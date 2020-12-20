@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if data == app.user %}
+        {% set data = app.user %}
+        Votre page de profil
+    {% else %}
+        {{ data.username }}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+<div class="col-sm-12" id="breadcrumb">
+        <a href="{{ path('home') }}"><span>Accueil</span></a>
+        >
+        <a href="{{ path('users') }}"><span>Utilisateurs</span></a>
+        >
+        {% if data == app.user %}
+            <span class="current-page">vous </span>
+        {% else %}
+            <span class="current-page">{{ data.username }} [#{{data.id}}]</span>
+        {% endif %}
+    </div>
+ 
+    <div class="col-sm-12">
+        {% if data == app.user %}
+            <h1 class="page-name">Votre page de profil</h1>
+        {% else %}
+            <h1 class="page-name">Page de profil de {{ data.username }}</h1>
+        {% endif %}
+    </div>
+    
+    <div class="col-sm-6 profile-page border">
+        <div class="row bg-dark dark info-title">
+			<span>
+                Statistiques globales</span>
+		</div>
+        <div class="row">
+			<div class="col-sm-6 border">
+				<img src="{{ asset('img/users/'~data.username~'.png')}}" alt="img/users/{{ data.username }}.png" id="profile-pic">
+			</div>
+			<div class="col-sm-6 border">
+				<ul class="list-group" id="details">
+					<li class="list-group-item">
+						<h2 class="name">{{ data.username }}</h2>
+					</li>
+					<li class="list-group-item">
+						<span class="{{ data.roleStr(data.roles|last) }}-role role">
+							{{ data.roleStr(data.roles|last)| title }}
+						</span>
+					</li>
+					<li class="list-group-item detail">
+						<span class="personal_page">
+							Inscrit depuis {{ data.registrationDate | date('d/m/Y')}}
+						</span>
+					</li>
+					
+					<li class="list-group-item detail">
+						<span class="birthday">
+							Date de naissance : 
+                            {% if data.birthDate is null %}
+                                <i class="empty-detail">indéfinie(</i>
+                            {% else %}
+                                {% if data.birthDate|date('d-m') == "now"|date('d-m') %}
+                                    <b>{{ data.birthDate|date('d/m/Y') }} 🎂</b>
+                                {% else %}
+                                    {{ data.birthDate|date('d/m/Y') }}
+                                {% endif %}
+                            {% endif %}
+						</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </div>
+
+
+   
+       
+
+    {% if app.user is not null and data == app.user  %}
+
+        <div class="col-sm-12" id="editProfileButtons">
+            <span>Edit profile</span>
+            <hr>
+            <br/>
+            <a href="{{ path('editProfileDetails',{id: data.id}) }}" class="btn btn-primary">Modifier les détails du profil</a>
+            <a href="{{ path('changeAvatar',{id:data.id}) }}" class="btn btn-primary">Changer l'image</a>
+            <a href="{{ path('editPassword',{id:data.id}) }}" class="btn btn-danger">Changer le mot de passe</a>
+            <a href="{{ path('supprofil',{id: data.id}) }}" class="btn btn-danger">supprimer le profil</a>
+            
+        </div>
+
+    
+
+    {% elseif "ROLE_ADMIN" in app.user.roles %}
+
+    <div class="col-sm-12" id="editProfileButtons">
+        <span>Edit profile</span>
+        <hr>
+        <br/>
+        <a href="{{ path('editProfileDetails',{id: data.id}) }}" class="btn btn-primary">Modifier les détails du profil</a>
+        <a href="{{ path('changeAvatar',{id:data.id}) }}" class="btn btn-primary">Changer l'image</a>
+        <a href="{{ path('editPassword',{id:data.id}) }}" class="btn btn-danger">Changer le mot de passe</a>
+        <a href="{{ path('supprofil',{id: data.id}) }}" class="btn btn-danger">supprimer le profil</a>
+        
+    </div>
+
+{% else %}
+Merci de vérifier les données de votre compte!
+ {% endif %}
+{% endblock %}

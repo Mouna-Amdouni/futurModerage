@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+<ul class="a">
+    <img src="https://scontent.ftun2-1.fna.fbcdn.net/v/t1.15752-9/129516733_1070227883401672_4190008357141565674_n.png?_nc_cat=102&ccb=2&_nc_sid=ae9488&_nc_ohc=gCqGsGF6InkAX_tf-3C&_nc_ht=scontent.ftun2-1.fna&oh=f41d891f6dcc6809fc2a88bb5f7fd105&oe=5FF425DC">
+</ul>
+ <div class="c" >
+    <br>
+    <h1 style="margin-left: 30px;">Nos Sondages </h1>
+    <br> <br>
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="row" style="text-align:center;">Titre </th>
+                    <th scope="row" style="text-align:center;">Nombre de participants </th>
+                    <th scope="row" style="text-align:center;" >Nombre de questions </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sondage in sondages %}
+
+                <tr class="primary">
+                    <td style="text-align:center;">{{sondage.titre}} </td>
+                    <td style="text-align:center;">{{sondage.nbParticipant}}</td>
+                    <td style="text-align:center;"> {{sondage.nbQuestion}}  </td>
+                    <td style="text-align:center;"> <button class="btn btn-primary"> Répondre </button></td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+  
+    
+    </article>
+<br><br><br>
+</div>
+{% endblock %}

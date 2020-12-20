@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} evaluation{{travail.id}} {% endblock %}
+
+{% block body %}
+
+
+
+
+
+<div class="col-xl-12">
+    <h1 class="page-name">{{ travail.id }}</h1>
+</div>
+
+
+ <div class="col-xl-12 message" id="new-message">
+    {% if app.user is null %}
+        <div class="bg-danger" id="no-new-message">
+            <p class="no-form">tu dois connecte d'abord pour acceder a cette page</p>
+        </div>
+    
+        {% else %}
+            <div id="new-message-form">
+                <a href="{{path('download_file', {id: travail.id}) }})}}">Download file</a>
+                {{ form_start(form) }}
+                <label for="new_message_content" class="required">les remarques : {{ travail.nomdoc }}</label>
+                {{ form_errors(form) }}
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        
+    {% endif %}
+</div> 
+
+{% endblock %}

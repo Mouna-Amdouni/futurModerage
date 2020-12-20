@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion d'utilisateurs{% endblock %}
+
+{% block body %}
+
+<!-- Breadcrumb -->
+<div class="col-sm-12" id="breadcrumb">
+    <a href="{{ path('home') }}"><span>Accueil</span></a>
+    >
+    <span>Gestion</span>
+</div>
+<!-- END Breadcrumb -->
+
+<!-- Page name -->
+<div class="col-xl-12">
+    <h1 class="page-name">Gestion de site web</h1>
+</div>
+<!-- END Page name -->
+
+<div class="col-xl-12" id="management">
+    <div class="row">
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="col-md-4">
+        {% else %}
+            <div class="col-md-6">
+        {% endif %}
+            <figure>
+                <a href="{{ path('staff_management') }}">
+                    <img src="{{ asset('img/icons/user.png') }}" alt="user-icon">
+                </a>
+                <figcaption>Gestion les utilisateurs </figcaption>
+            </figure>
+        </div>
+        
+      
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="col-md-4">
+        {% else %}
+            <div class="col-md-6">
+        {% endif %}
+            <figure><a
+                <a href=" {{path("forum")}}">
+                    <img src="{{ asset('img/icons/forum.png') }}" alt="forum-icon">
+                </a>
+                <figcaption>gestion des Forum</figcaption>
+            </figure>
+        </div>  
+    </div>
+</div>
+
+{% endblock %}

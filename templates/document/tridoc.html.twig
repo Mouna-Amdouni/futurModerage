@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deopse {% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {% if   (app.user !=null) and ("ROLE_ADMIN"  in app.user.roles) or ( "ROLE_ENSE"  in app.user.roles )  %}
+    <div class="col-xl-12" id="create-topic">
+       <a href="{{ path("deposer") }}"><p><b>➕</b> Ajouter un nouveau document</p></a>
+    </div>
+{% endif %} 
+
+    <h5>Selectionner le type de document ! ✅</h5>
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+ 
+</div>
+{% endblock %}

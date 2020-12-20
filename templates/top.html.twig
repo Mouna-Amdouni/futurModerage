@@ -1,0 +1,48 @@
+<div class="row" id="top">
+    <div class="col-xl-5" id="logo">
+        <a href="{{ path("home") }}" title="Homepage">
+            <img src="{{ asset('img/websiteLogo.png')}}"  style=" width: 70%;"  alt="iset">
+        </a>
+    </div>
+    <div class="col-xl-7" id="login-data">
+        {% if app.user is null %}
+            <p>
+                Vous n'êtes pas connecté 
+                <a href="{{ path("app_login") }}" class="btn btn-primary login-btn">S'identifier</a>
+            </p>
+            <p>
+                Pas de compte ? 
+                <a href="{{ path("register") }}" class="btn btn-primary login-btn">Rejoignez-nous</a>
+            </p>
+        {% else %}
+            <a href="{{ path('profile', {id: app.user.id}) }}" title="Access to your profile page" id="session-profile-access">
+                <img src="{{ asset('img/users/'~app.user.username~'.png')}}" alt="{{ app.user.username }}'s profile picture" class="session-pp">
+            </a>
+            <table id="login-data-text">
+                <tr>
+                    <th>
+                        <p>
+                            {{ app.user.nom }}  {{ app.user.prenom }}
+                        </p>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="{{ app.user.roleStr(app.user.roles|last) }}-role">
+                            <b>{{ app.user.roleStr(app.user.roles|last)| title }}</b>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="{{ path('app_logout')}}" id="logout-link">
+                            <p>
+                                Se déconnecter
+                            </p>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Site éducative - Actualite{% endblock %}
+
+{% block body %}
+
+<div></div>
+<div style="
+
+background-color:white; border-radius: 20%; margin: auto;
+width: 70%;
+border: 5px solid grey;
+padding: 10px;">
+<h3 style="color:rgb(211, 106, 35);text-align: center;" >{{ act.nom }}</h3>
+<h7 style="color:red;text-align: center;" >{{ act.createdAt | date('d/m/Y H:i:s') }}</h7>
+<p style="color:black">{{ act.description }}</p>
+</div>
+{% endblock %}

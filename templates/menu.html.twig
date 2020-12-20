@@ -1,0 +1,80 @@
+<div class="row" id="menu">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="{{ path('home') }}" id="home-button">
+            <img src="{{ asset('img/favicon.png')}}" width="30" height="30" class="d-inline-block align-top" alt="MENU">
+            Page d'accueil
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                {% if app.user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('document') }}">Tableau de bord</a>
+                </li>
+              {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('acts') }}">Actualité</a>
+                </li>
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('profile', {id: app.user.id}) }}">PROFILE</a>
+                    </li>
+                {% endif %}
+              
+                
+                {% if app.user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('forum') }}">Forum</a>
+                </li>
+                {% endif %}
+                {% if app.user %}
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('users') }}">Les membres</a>
+                </li>
+                {% endif %}
+                {% if app.user %}
+                    {% if "ROLE_ADMIN" in app.user.roles %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('management') }}">Management</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                {% if app.user %}
+                {% if ("ROLE_ADMIN" not  in app.user.roles) and ( "ROLE_ENSE" not  in app.user.roles )  %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('travaill') }}">Deopser projet</a>
+                    </li>
+                {% endif %}
+
+                {% if ("ROLE_ADMIN" not  in app.user.roles) and ( "ROLE_ENSE"  in app.user.roles )  %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('corriger') }}">
+                            corriger un projet</a>
+                    </li>
+                {% endif %}
+
+                {% if ("ROLE_ADMIN" not  in app.user.roles) and ( "ROLE_ENSE" not  in app.user.roles )  %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('docs') }}">Consultez mes docs</a>
+                    </li>
+                {% endif %}
+               
+            
+            {% endif %}
+            </ul>
+        </div>
+    </nav>
+</div>
+<script>
+    $(function(){ 
+        var navMain = $(".navbar-collapse");
+
+        navMain.on("click", "a", null, function () {
+            navMain.collapse('hide');
+        });
+    });
+</script>

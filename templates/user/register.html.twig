@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}IT Solutions - Registration{% endblock %}
+
+{% block body %}
+<!-- Breadcrumb -->
+<div class="col-sm-12" id="breadcrumb">
+    <a href="{{ path('home') }}"><span>	Accueil</span></a>
+    >
+    <span>inscription</span>
+</div>
+<!-- END Breadcrumb -->
+
+<!-- Page title -->
+<div class="col-md-12">
+	<h1 class="page-name"> page d'inscription </h1>
+</div>
+<!-- END Page title -->
+
+<br/>
+<div class="col-md-8" id="registration-form">
+	<h2>Formulaire d'inscription</h2>
+	<hr>
+	{{ form_start(form) }}
+	{{ form_rest(form) }}
+	<p class="failed">ATTENTION ! Votre mot de passe est crypté et ne peut pas être récupéré si vous l'oubliez</p>
+	<input type="submit" class="btn btn-primary" value="Register">
+	{{ form_errors(form) }}
+	{{ form_end(form) }}
+</div>
+    
+{% endblock %}

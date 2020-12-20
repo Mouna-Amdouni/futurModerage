@@ -1,0 +1,76 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}les documents de votre cherchere{% endblock %}
+
+{% block body %}
+
+
+<div class="col-sm-12" id="breadcrumb">
+    <a href="{{ path('home') }}"><span>Accueil</span></a>
+    >
+   
+</div>
+
+
+<div class="col-xl-12">
+    <h1 class="page-name">Forum</h1>
+    <span>Every topics</span>
+</div>
+
+
+
+<div class="col-xl-12 table-responsive text-nowrap">
+    <table class="table table-list" id="topics">
+        <thead class="thead-dark">
+            <tr>
+               
+                <th scope="col"><a href="#" title="Order by name" class="filterLink">Nom document</a></th>
+                <th scope="col"><a href="#" title="Order by role" class="filterLink">Date de creation</a></th>
+                <th scope="col"><a href="#" title="Order by role" class="filterLink">Type de document</a></th>
+                <th scope="col"><a href="#" title="Order by role" class="filterLink">Telecharger</a></th>
+                {%  if   (app.user !=null) and ("ROLE_ADMIN"  in app.user.roles) and ( "ROLE_ENSE"  in app.user.roles )  %}
+                <th scope="col"><span class="filterLink">supprimer</span></th>
+                {% endif %}
+                
+                
+            </tr>
+        </head>
+        <tbody>
+            {% for document in documents %}
+                <tr data-id="{{ document.id }}" tabindex="0">
+                    <th scope="row">
+                            <span class="topic-title">{{ document.nomdoc }} </span>
+                    </th>
+                    <td>
+                        <p>
+                            {{ document.createdat  | date('d/m/Y H:i:s') }} 
+                        </p>
+                    </td>
+                    <td>
+                                    <p>
+                                        {{ document.type }}
+                                    </p>
+                  </td>
+                  <td>
+                  <p>
+                    <a href="{{ path('Teledoc',{id: document.id}) }}" class="btn btn-danger">Telecharger</a>
+                </p>
+            </td>
+            {% if (app.user !=null) and  ("ROLE_ADMIN"  in app.user.roles) and ( "ROLE_ENSE"  in app.user.roles )  %}
+                  
+            <td>
+                <a href="{{ path('deletedocc',{id: document.id}) }}" class="btn btn-danger">supprimer la Document</a>
+            </td>
+            {% endif %}
+                    
+                </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}

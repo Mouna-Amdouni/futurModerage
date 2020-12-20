@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}les documents ont été déposés{% endblock %}
+
+{% block body %}
+
+<!-- Breadcrumb -->
+<div class="col-sm-12" id="breadcrumb">
+    <a href="{{ path('home') }}"><span>Accueil</span></a>
+    >
+   
+</div>
+<!-- END Breadcrumb -->
+
+<div class="col-xl-12">
+    <h1 class="page-name">Forum</h1>
+    
+</div>
+
+
+
+<div class="col-xl-12 table-responsive text-nowrap">
+    <table class="table table-list" id="topics">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col"><a href="#" class="filterLink">Nom de document</a></th>
+                <th scope="col"><a href="#" title="Order by name" class="filterLink">Etudiant</a></th>
+                <th scope="col"><a href="#" title="Order by role" class="filterLink">Remarque</a></th>
+                
+                
+            </tr>
+        </head>
+        <tbody>
+            {% for travail in travails %}
+                <tr data-id="{{ travail.id }}" tabindex="0">
+                    <th scope="row">
+                            <span class="topic-title">{{ travail.nomdoc }} </span>
+                        
+                        
+                    </th>
+                    <td>
+                        <p>
+                            {{ travail.nom }} {{ travail.prenom }}
+                        </p>
+                    </td>
+                    <td>
+                    {% if travail.remarque is null %}
+                            <div class="bg-danger" id="no-new-message">
+                                <p class="no-form">pas de remarque</p>
+                            </div>
+                     {% else %}  
+                                
+                                    <p>
+                                        {{ travail.remarque }}
+                                    </p>
+                                
+                    {% endif %}         
+                </td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $('#topics > tbody > tr').click(function() {
+        window.location.href = "evaluer/" + $(this).data("id");
+	});
+
+   
+</script>
+{% endblock %}

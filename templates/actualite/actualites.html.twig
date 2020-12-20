@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Site éducative - Forum{% endblock %}
+
+{% block body %}
+
+<!-- Breadcrumb -->
+<div class="col-sm-12" id="breadcrumb">
+    <a href="{{ path('home') }}"><span>Accueil</span></a>
+    >
+   
+</div>
+
+<div class="col-xl-12">
+    <h1 class="page-name">actualité</h1>
+    <span>Tous les actualité</span>
+</div>
+
+{% if   (app.user !=null) and ("ROLE_ADMIN"  in app.user.roles) and ( "ROLE_ENSE"  in app.user.roles )  %}
+    <div class="col-xl-12" id="create-topic">
+       <a href="{{ path("creer_act") }}"><p><b>➕</b> Ajouter un nouveau actualité</p></a>
+    </div>
+{% endif %}
+{% if   (app.user !=null) and ("ROLE_ADMIN"  in app.user.roles) and ( "ROLE_ENSE"  in app.user.roles )  %}
+    Cliquer sur l'actialité pour le modifier!
+{% endif %}
+
+
+<div class="col-xl-12 table-responsive text-nowrap">
+    <table class="table table-list" id="topics">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col"><a href="#" class="filterLink">Nom de l'actualité</a></th>
+                <th scope="col"><span class="filterLink">date</span></th>
+                <th scope="col"><a href="#" title="Order by name" class="filterLink">Plus de details</a></th>
+
+                {%  if   (app.user !=null) and ("ROLE_ADMIN"  in app.user.roles) and ( "ROLE_ENSE"  in app.user.roles )  %}
+                <th scope="col"><span class="filterLink">supprimer</span></th>
+                {% endif %}
+            </tr>
+        </head>
+        <tbody>
+   
+            {% for act in acts %}
+            {% if (app.user ) or ("ROLE_ADMIN"   in app.user.roles) %}
+
+            {% endif %}
+                <tr data-id="{{ act.id }}" tabindex="0">
+                    <th scope="row">
+                            <span class="topic-title">{{ act.nom }}</span>
+                        
+                        
+                    </th>
+                    <td>
+                        <p>
+                            {{ act.createdAt | date('d/m/Y H:i:s') }}
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <a href="{{ path('detailact',{id: act.id}) }}" class="btn btn-danger">CLiquer ici!</a>
+                        </p>
+                    </td>
+                    
+
+
+                    
+                    {% if (app.user !=null) and  ("ROLE_ADMIN"  in app.user.roles) and ( "ROLE_ENSE"  in app.user.roles )  %}
+                    <td>
+                        <a href="{{ path('delete',{id: act.id}) }}" class="btn btn-danger">supprimer le actualité</a>
+                    </td>
+                    {% endif %}
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $('#topics > tbody > tr').click(function() {
+        window.location.href = "editer/" + $(this).data("id");
+	});
+   
+</script>
+{% endblock %}
